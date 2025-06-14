@@ -64,7 +64,7 @@ simulate_sampsize = function(tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, ma
          ,ylim=median(trials[,1])^2 * c(.75,1.33)             # zoomed, not showing everything
          ,main=c("Trace of sample size exploration",paste0("Current estimate ",round(latest_estimate^2)," = (",round(latest_estimate,1),"+-",round(se,2),")²")) # writing the latest estimate and its error
          ,xlab="Simulation#",ylab="Sample size",type="p"
-         ,col=c(rgb(1,.5,0),rgb(0,.6,0.8))[1+trials[,2]],pch=3,cex=.25+.25*(1-trials[,2]) # successes in blue, failures in orange ; so higher ordinates are bluer, lower are oranger
+         ,col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"44")[1+trials[,2]],pch=1,cex=.25+.25*(1-trials[,2]) # successes in blue, failures in orange ; so higher ordinates are bluer, lower are oranger
          )
 
     
@@ -92,7 +92,7 @@ simulate_sampsize = function(tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, ma
     tarNN = pmin(capNN,tarNN)                                                 # applying the cap ; but if all simulations are made at the same sample size the optimizer cannot compute a slope and fails
     if(all(tarNN==capNN)) tarNN = tarNN*rep(c(.5,1),c(round(length(tarNN)),length(tarNN)-round(length(tarNN))))    # so we divide half of values by 2 if that is the case
       if(verbose) { cat("\n") ; print(tarNN); cat("\n") ; print(se) ; cat("\n") }    # another verbose descriptions of how the run is going
-    points(nrow(trials)+1:length(tarNN),tarNN,col="lightgrey",pch=3,cex=.5)   # drawing current batch on the graph, result unknown so in grey
+    points(nrow(trials)+1:length(tarNN),tarNN,col="#555555AA",pch=1,cex=.8)   # drawing current batch on the graph, result unknown so in grey
     plot(                                                                     # second graph (right panel)
           trials[,1]^2+rnorm(nrow(trials),0,.25)                              # sample size
          ,trials[,2] + (trials[,2]-.5)*2*-rexp(nrow(trials),20)               # success or failure, with some jittering to appreciate density
