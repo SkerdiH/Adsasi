@@ -93,7 +93,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
               }       
     save(tarNN,trials,latest_beta,latest_estimate,file="inner.rda")           # for checking in case of strange behavior ; loading inner.rda puts those in the global environment              
     tarNN = pmin(capNN,tarNN)                                                 # applying the cap ; but if all simulations are made at the same sample size the optimizer cannot compute a slope and fails
-    if(all(tarNN==capNN)) tarNN = tarNN*rep(c(.5,1),c(round(length(tarNN)),length(tarNN)-round(length(tarNN))))    # so we divide half of values by 2 if that is the case
+    if(all(tarNN==tarNN[1])) tarNN = tarNN*rep(c(.5,1),c(round(length(tarNN)),length(tarNN)-round(length(tarNN))))    # so we divide half of values by 2 if that is the case
       if(verbose) { cat("\n") ; print(tarNN); cat("\n") ; print(se) ; cat("\n") }    # another verbose descriptions of how the run is going
     points(nrow(trials)+1:length(tarNN),tarNN,col="#55555588",pch=1,cex=.8)   # drawing current batch on the graph, result unknown so in grey
     plot(                                                                     # second graph (right panel)
@@ -106,7 +106,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
     if(savegraphs) dev.off()                                                  # closing device and saving image if graphs are to be saved
     }                                                                         # end of loop
   
-  cat("sample size found : ", round(latest_estimate^2), " with ",nrow(trials), " simulated trials", ifelse(nrow(trials)<nsims,"(cap for large N activated)",""), "\n")
+  cat("sample size : ", round(latest_estimate^2), " with ",nrow(trials), " simulated trials", ifelse(nrow(trials)<nsims,"(halted for inefficiency)",""), "\n")
   if( latest_estimate^2 > 4*maxNN ) latest_estimate=Inf                       # there is little accuracy when trying to extrapolate that far
   round(latest_estimate^2)
   }                                                                           # end of function
