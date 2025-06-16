@@ -51,5 +51,6 @@ print(proposal)
 readline(prompt="Press [enter] to continue")
 
 # End
+cat("Estimations above the provided capNN (default 2000) argument are not reliable, so adapt it to your problem.","\n",sep="")
 cat("Do not hesitate to display the adsasi function itself, it is heavily annotated","\n",sep="")
 readline(prompt="Press [enter] to finish the tutorial")
