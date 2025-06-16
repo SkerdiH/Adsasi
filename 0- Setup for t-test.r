@@ -6,7 +6,7 @@
 
 # For this first example, we are taking a case where the analytical formula for sample size is well known, the t-test
 # The implementation uses a function in the global environment for easy fiddling
-simulate_one_trial = function(NN,effsize=1) # NN for total sample size, effsize for effect size
+simulate_one_trial = function(NN,effsize=.5) # NN for total sample size, effsize for effect size
  { 
   y0 = rnorm(round(NN/2))           # control arm
   y1 = rnorm(NN-length(y0))         # intervention arm
