@@ -47,8 +47,8 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
   # Here is the main loop
   while(  nrow(trials)<nsims                                 # exit if enough simulations made
         & !(nrow(trials)>200 & latest_estimate>sqrt(capNN))  # exit if after 200+ simulated trials the answers seems to be >capNN
-        & !latest_estimate>314)                              # exit in any case if answer seems >100k patients (likely a user error 
-                                                             #    leading to lots of wasted compute)
+        & !(latest_estimate>314&sum(trials[,1]==sqrt(maxNN))>10))  # exit in any case if answer seems >100k patients (likely a user error 
+                                                                   #    leading to lots of wasted compute)
    {
     cat("-")                                                 # a homebrew progress bar
     simulations = sapply(tarNN,simfun,...)           # running the simulations, getting a vector of logicals. Note that this calls 
