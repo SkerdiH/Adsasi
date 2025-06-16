@@ -10,7 +10,7 @@ simulate_one_trial = function(NN,effsize=1) # NN for total sample size, effsize 
  { 
   y0 = rnorm(round(NN/2))           # control arm
   y1 = rnorm(NN-length(y0))         # intervention arm
-  y1 = y1 + 1                       # applying the effect size to the intervention arm
+  y1 = y1 + effsize                 # applying the effect size to the intervention arm
   
   if(NN>=4)                         # t-test not computable for N<4. Because the Adsasi algorithm will try many things, it's usually good practice to hard-code edge cases. 
    {
