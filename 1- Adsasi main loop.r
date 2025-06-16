@@ -110,9 +110,3 @@ simulate_sampsize = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, cap
   if( latest_estimate^2 > 4*maxNN ) latest_estimate=Inf                       # there is little accuracy when trying to extrapolate that far
   round(latest_estimate^2)
   }                                                                           # end of function
-
-# Running
-proposal = simulate_sampsize(simulate_one_trial,0.90)
-
-cat('\n')
-simulate_one_trial(proposal)
