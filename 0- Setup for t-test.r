@@ -20,15 +20,17 @@ simulate_one_trial = function(NN,effsize=1) # NN for total sample size, effsize 
             } 
   pp<.05                            # nothing fancy here
   }
+
+# Checking the function
 cat("One trial with 500 patients : ",simulate_one_trial(500),"\n")      # checking we get an output (should be TRUE unless you are cosmically unlucky)
 cat("One trial with 3 patients : ",simulate_one_trial(3),"\n")          # checking we get an output (should be FALSE even if you are cosmically unlucky)
 cat( "1000 trials of 60 patients : "
     ,round(100*mean(replicate(1000,simulate_one_trial(60))))            # parallelizing at one size
     ,"% TRUE","\n"
     )
-# By the way let's just check the actual (analytical) sample size real quick
-cat( "(analytical sample size for this toy example : "
-    ,power.t.test(NULL,delta=1,sig=.05,power=.9)$n*2 # times 2 because the output is per arm
-    ,")",sep=""
-    )
 
+# Checking the actual (analytical) sample size
+cat( "(analytical sample size for this toy example : "
+    ,round(power.t.test(NULL,delta=1,sig=.05,power=.9)$n*2) # times 2 because the output is per arm
+    ,")\n",sep=""
+    )
