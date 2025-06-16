@@ -2,11 +2,12 @@
 ######################################################################
 # Adaptive simulation wrapper based on function simulate_one_trial(NN)
 ######################################################################
-simulate_sampsize = function(simfun,...,tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
+simulate_sampsize = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
  {
   # simfun for the user-supplied simulation function that takes as first argument a sample size and returns TRUE or FALSE
-  # ... for additional (preferrably named) arguments for simfun (for however the user wrote the latter)
   # tar_power for desired power
+  # ... for additional arguments for simfun (for however the user wrote the latter)
+  #    it is better to name these additional arguments to avoid confusion
   # nsims for number of simulations wanted. Because the algorithm just tries stuff around the right sample size, it yields approximately a 
   #    Monte Carlo variance for the power of the sample size it outputs. So if you want less than .5% deviation from 90% power, you need
   #    nsims = .9*.1/(.005^2) = 3600 (or more) simulated trials
