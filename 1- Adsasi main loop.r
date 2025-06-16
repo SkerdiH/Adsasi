@@ -2,8 +2,10 @@
 ######################################################################
 # Adaptive simulation wrapper based on function simulate_one_trial(NN)
 ######################################################################
-simulate_sampsize = function(tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
+simulate_sampsize = function(simfun,...,tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
  {
+  # simfun for the user-supplied simulation function that takes as first argument a sample size and returns TRUE or FALSE
+  # ... for additional arguments for simfun (for however the user wrote the latter)
   # tar_power for desired power
   # nsims for number of simulations wanted. Because the algorithm just tries stuff around the right sample size, it yields approximately a 
   #    Monte Carlo variance for the power of the sample size it outputs. So if you want less than .5% deviation from 90% power, you need
@@ -48,7 +50,7 @@ simulate_sampsize = function(tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, ma
                                                              #    leading to lots of wasted compute)
    {
     cat("-")                                                 # a homebrew progress bar
-    simulations = sapply(tarNN,simulate_one_trial)           # running the simulations, getting a vector of logicals. Note that this calls 
+    simulations = sapply(tarNN,simfun,...)           # running the simulations, getting a vector of logicals. Note that this calls 
                                                              #    the function from the global environment so it needs to be defined there
     cat("*")                                                 # a homebrew progress bar again
     
