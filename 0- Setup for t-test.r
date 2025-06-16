@@ -24,7 +24,7 @@ cat("One trial with 500 patients : ",simulate_one_trial(500),"\n")      # checki
 cat("One trial with 3 patients : ",simulate_one_trial(3),"\n")          # checking we get an output (should be FALSE even if you are cosmically unlucky)
 cat( "1000 trials of 60 patients : "
     ,round(100*mean(replicate(1000,simulate_one_trial(60))))            # parallelizing at one size
-    ,"% TRUE"
+    ,"% TRUE","\n"
     )
 # By the way let's just check the actual (analytical) sample size real quick
 power.t.test(NULL,delta=1,sig=.05,power=.9)$n*2 # times 2 because the output is per arm
