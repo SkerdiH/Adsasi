@@ -11,8 +11,8 @@ cat(simulate_one_trial(500),"\n",sep="")
 
 readline(prompt="Press [enter] to continue")
 cat("Now let's do a batch of 1000 trials and compute the observed power with","\n",sep="")
-readline(prompt="Press [enter] to continue")
 cat("mean(replicate(1000,simulate_one_trial(500)))","\n",sep="")
+readline(prompt="Press [enter] to continue")
 cat(mean(replicate(1000,simulate_one_trial(500))),"\n",sep="")
 
 readline(prompt="Press [enter] to continue")
