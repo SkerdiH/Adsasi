@@ -1,6 +1,6 @@
 # Checking that the base function works
 readline(prompt="Press [enter] to start the tutorial")
-cat("Let us first check that our individual simulator function works with command : ","\n",sep="")
+cat("Let us first check that our individual simulator function works by calling it a few times.","\n",sep="")
 readline(prompt="Press [enter] to continue")
 cat("simulate_one_trial(500)","\n",sep="")
 cat(simulate_one_trial(500),"\n",sep="")
