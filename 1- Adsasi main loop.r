@@ -5,7 +5,7 @@
 simulate_sampsize = function(simfun,...,tar_power=0.9, nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
  {
   # simfun for the user-supplied simulation function that takes as first argument a sample size and returns TRUE or FALSE
-  # ... for additional arguments for simfun (for however the user wrote the latter)
+  # ... for additional (preferrably named) arguments for simfun (for however the user wrote the latter)
   # tar_power for desired power
   # nsims for number of simulations wanted. Because the algorithm just tries stuff around the right sample size, it yields approximately a 
   #    Monte Carlo variance for the power of the sample size it outputs. So if you want less than .5% deviation from 90% power, you need
@@ -110,7 +110,8 @@ simulate_sampsize = function(simfun,...,tar_power=0.9, nsims=5000, verbose=F, ca
   round(latest_estimate^2)
   }                                                                           # end of function
 
-proposal = simulate_sampsize(0.90)
+# Running
+proposal = simulate_sampsize(simulate_one_trial,0.90)
 
 cat('\n')
 simulate_one_trial(proposal)
