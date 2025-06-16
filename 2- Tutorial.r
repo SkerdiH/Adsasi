@@ -51,7 +51,7 @@ print(proposal)
 readline(prompt="Press [enter] to continue")
 
 # End
-cat("Estimations above the provided maxNN argument (default 2000) are not reliable, so adapt it to your problem.","\n",sep="")
+cat("Estimations above the provided capNN argument (default 2000) are not reliable, so adapt it to your problem.","\n",sep="")
 cat("There are several other failsafes that you may want to deactivate for large (and likely slow) sample size problems.","\n",sep="")
 cat("Do not hesitate to display the adsasi function itself, it is heavily annotated.","\n",sep="")
 cat("Happy sample size fishing !","\n",sep="")
