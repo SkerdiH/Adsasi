@@ -37,6 +37,7 @@ proposal = adsasi(simulate_one_trial,0.90)
 # Running adsasi one last time
 cat("Want to change one of the arguments of the function you wrote ? Put it in there : ","\n",sep="")
 cat("adsasi(simulate_one_trial,0.90,effsize=.5)  # changing the effsize parameter","\n",sep="")
+readline(prompt="Press [enter] to continue")
 proposal = adsasi(simulate_one_trial,0.90,effsize=.5)
 readline(prompt="Press [enter] to continue")
 
