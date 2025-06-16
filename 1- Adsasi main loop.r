@@ -2,7 +2,7 @@
 ######################################################################
 # Adaptive simulation wrapper based on user-supplied function
 ######################################################################
-adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
+adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, capNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
  {
   # simfun for the user-supplied simulation function that takes as first argument a sample size and returns TRUE or FALSE
   # tar_power for desired power
@@ -13,8 +13,8 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
   #    nsims = .9*.1/(.005^2) = 3600 (or more) simulated trials
   #    The algorithm does the calculations in 10% batches to parallelize things a bit so it will overshoot nsims. 
   # verbose to write some outputs in the console if you fear something is amiss
-  # capNN is used to force-exit the algorithm if the answer seems to be more than capNN patients after a few iterations
-  # maxNN is a cap on the size of the trials the algorithm will simulate
+  # impNN is the impossibility threshold, used to force-exit the algorithm if the answer is more than impNN patients after a few iterations
+  # capNN is a cap on the size of the trials the algorithm will simulate
   # trim_initiation is to "forget" the first simulations ; useful if the probit relationship is suspected to be misspecified 
   #    (it will generally be somewhat misspecified if the problem is complex enough to warrant use of this algorithm)
   #    also useful if one gets an early unlucky draw (e.g. a trial with 10k patients that returns FALSE)
@@ -46,8 +46,8 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
                              )}
   # Here is the main loop
   while(  nrow(trials)<nsims                                 # exit if enough simulations made
-        & !(nrow(trials)>200 & latest_estimate>sqrt(capNN))  # exit if after 200+ simulated trials the answers seems to be >capNN
-        & !(latest_estimate>314&sum(trials[,1]==sqrt(maxNN))>10))  # exit in any case if answer seems >100k patients (likely a user error 
+        & !(nrow(trials)>200 & latest_estimate>sqrt(impNN))  # exit if after 200+ simulated trials the answers seems to be >impNN
+        & !(latest_estimate>314&sum(trials[,1]==sqrt(capNN))>10))  # exit in any case if answer seems >100k patients (likely a user error 
                                                                    #    leading to lots of wasted compute)
    {
     cat("-")                                                 # a homebrew progress bar
@@ -93,7 +93,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
               }       
     save(tarNN,trials,latest_beta,latest_estimate,file="inner.rda")           # for checking in case of strange behavior ; loading inner.rda puts those in the global environment              
     tarNN = pmin(capNN,tarNN)                                                 # applying the cap ; but if all simulations are made at the same sample size the optimizer cannot compute a slope and fails
-    if(all(tarNN==tarNN[1])) tarNN = tarNN*rep(c(.5,1),c(round(length(tarNN)),length(tarNN)-round(length(tarNN))))    # so we divide half of values by 2 if that is the case
+    if(all(c(trials[,1]^2,tarNN)==tarNN[1])) tarNN = tarNN*rep(c(.5,1),c(round(length(tarNN)),length(tarNN)-round(length(tarNN))))    # so we divide half of values by 2 if that is the case
       if(verbose) { cat("\n") ; print(tarNN); cat("\n") ; print(se) ; cat("\n") }    # another verbose descriptions of how the run is going
     points(nrow(trials)+1:length(tarNN),tarNN,col="#55555588",pch=1,cex=.8)   # drawing current batch on the graph, result unknown so in grey
     plot(                                                                     # second graph (right panel)
@@ -107,6 +107,6 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, max
     }                                                                         # end of loop
   
   cat("sample size : ", round(latest_estimate^2), " with ",nrow(trials), " simulated trials", ifelse(nrow(trials)<nsims,"(halted for inefficiency)",""), "\n")
-  if( latest_estimate^2 > 4*maxNN ) latest_estimate=Inf                       # there is little accuracy when trying to extrapolate that far
+  if( latest_estimate^2 > 4*capNN ) latest_estimate=Inf                       # there is little accuracy when trying to extrapolate that far
   round(latest_estimate^2)
   }                                                                           # end of function
