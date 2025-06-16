@@ -1,8 +1,8 @@
 ######################################################################
 ######################################################################
-# Adaptive simulation wrapper based on function simulate_one_trial(NN)
+# Adaptive simulation wrapper based on user-supplied function
 ######################################################################
-simulate_sampsize = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
+adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, capNN=Inf, maxNN=2000, trim_initiation = TRUE, savegraphs = FALSE) 
  {
   # simfun for the user-supplied simulation function that takes as first argument a sample size and returns TRUE or FALSE
   # tar_power for desired power
