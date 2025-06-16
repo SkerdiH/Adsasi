@@ -20,18 +20,18 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, cap
   #    also useful if one gets an early unlucky draw (e.g. a trial with 10k patients that returns FALSE)
   # savegraphs to save the diagnostic graphs instead of displaying them
 
-  # So, the general way this algorithm works is we are going to compute different sample sizes only a few times and then fit a probit regression
+  # The general way this algorithm works is we are going to compute different sample sizes only a few times and then fit a probit regression
   # this will enable picking a new range of values, and we keep doing this until we have enough simulations
 
   # Initializing some variables
-  tarNN = round(exp(seq(log(10),log(300),length.out=48)))    # tarNN will be a vector of target sample sizes that will be simulatedi teratively
+  tarNN = round(exp(seq(log(10),log(300),length.out=48)))    # tarNN will be a vector of target sample sizes that will be simulated iteratively
   latest_estimate = sqrt(30)                                 # this is the square root of the sample size
   latest_beta=.01                                            # this is the slope nuisance parameter (how fast power drops if sample size is not adequate)
   trials = matrix(c(1,sqrt(1000000),0,1),nrow=2)             # this is where we store the TRUE/FALSE results of our simulations for each tested sample size, 
                                                              #    we are initiating assuming 1 patient is not enough and 1M patients is enough
   colnames(trials) = c("srsampsize","nullreject")            # srsampsize for "Square Root of SAMPle SIZE", nullreject for whether a discovery is made (even 
-                                                             #    if it is not strictly a rejection of a well-defined null
-  se = NA                                                    # standard error of the square root of the target sample size by the Hessian matrix
+                                                             #    if it is not strictly a rejection of a well-defined null)
+  se = NA                                                    # standard error of the square root of the target sample size using the Hessian matrix
   batch = 0                                                  # just an iteration of simulation batches to keep count
   
   intercept_target = qnorm(tar_power)                        # given the equation we use (see paper), we have an intercept term where we have tar_power = pnorm(intercept_target)
