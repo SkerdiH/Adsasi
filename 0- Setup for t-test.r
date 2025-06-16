@@ -27,5 +27,8 @@ cat( "1000 trials of 60 patients : "
     ,"% TRUE","\n"
     )
 # By the way let's just check the actual (analytical) sample size real quick
-power.t.test(NULL,delta=1,sig=.05,power=.9)$n*2 # times 2 because the output is per arm
+cat( "(analytical sample size for this toy example : "
+    ,power.t.test(NULL,delta=1,sig=.05,power=.9)$n*2 # times 2 because the output is per arm
+    ,")",sep=""
+    )
 
