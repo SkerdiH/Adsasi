@@ -37,8 +37,18 @@ proposal = adsasi(simulate_one_trial,0.90)
 # Running adsasi one last time
 cat("Want to change one of the arguments of the function you wrote ? Put it in there : ","\n",sep="")
 cat("adsasi(simulate_one_trial,0.90,effsize=.5)  # changing the effsize parameter","\n",sep="")
+proposal = adsasi(simulate_one_trial,0.90,effsize=.5)
 readline(prompt="Press [enter] to continue")
 
-# Finish
+# Scalar output
+cat("The adsasi function returns a scalar (sometimes Inf), so simulations can be parallelized.","\n",sep="")
+cat("proposal = adsasi(simulate_one_trial,0.90)","\n",sep="")
+readline(prompt="Press [enter] to continue")
+proposal = adsasi(simulate_one_trial,0.90)
+cat("print(proposal)","\n",sep="")
+print(proposal)
+readline(prompt="Press [enter] to continue")
+
+# End
 cat("Do not hesitate to display the adsasi function itself, it is heavily annotated","\n",sep="")
 readline(prompt="Press [enter] to finish the tutorial")
