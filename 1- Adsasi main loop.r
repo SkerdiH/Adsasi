@@ -102,6 +102,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, cap
          ,xlim=latest_estimate^2 * c(.75,1.33)                                # slightly zoomed, not showing everything
          ,ylim=0:1,main=c("Probit regression",paste0("New estimate ",round(latest_estimate^2),", slope ",round(latest_beta,3))),xlab="Sample size",ylab="Expected power"
          ,type="p",col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"44")[1+trials[,2]],pch=1,cex=.5)
+    lines(latest_estimate^2*c(.75,1,1),c(.9,.9,0),lty=2)
     curve(pnorm(qnorm(tar_power)+latest_beta*(sqrt(x)-latest_estimate)),add=TRUE)
     if(savegraphs) dev.off()                                                  # closing device and saving image if graphs are to be saved
     }                                                                         # end of loop
