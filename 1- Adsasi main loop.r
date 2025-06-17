@@ -59,7 +59,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, cap
     if(nrow(trials)>200&trim_initiation) { trials=trials[-(1:100),] ; trim_initiation = FALSE } # kick out first iterations, deactivate the logical switch
     
     trials = rbind(trials,cbind(srsampsize=sqrt(tarNN),simulations))  # collating the latest simulations with the ones before
-    if(savegraphs) { batch=batch+1 ; pngname = paste(sep="","adsasi",gsub(":","-",as.character(Sys.time()),fixed=T),"iteration",batch,".png") ; png(pngname,width=400*2,height=400) } # opening a device to save graphs
+    if(savegraphs) { batch=batch+1 ; pngname = paste(sep="","adsasi",gsub(":","-",as.character(Sys.time()),fixed=T)," iteration ",paste(rep(0,3-nchar(batch)),collapse=""),batch,".png") ; png(pngname,width=400*2,height=400) } # opening a device to save graphs
     par(mfrow=c(1,2),cex=1.35,cex.lab=1,cex.axis=1)           # light aesthetic setup
     plot(
           trials[,1]^2                                        # sample sizes as ordinates, the abscissae are by default 1:nrow(trials) and that's what we want (to plot them in order)
@@ -67,7 +67,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, cap
          ,ylim=median(trials[,1])^2 * c(.75,1.33)             # zoomed, not showing everything
          ,main=c("Trace of sample size exploration",paste0("Current estimate ",round(latest_estimate^2)," = (",round(latest_estimate,1),"+-",round(se,2),")²")) # writing the latest estimate and its error
          ,xlab="Simulation#",ylab="Sample size",type="p"
-         ,col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"99")[1+trials[,2]],pch=1,cex=.5+.1*(1-trials[,2]) # successes in blue, failures in orange ; so higher ordinates are bluer, lower are oranger
+         ,col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"")[1+trials[,2]],pch=3,cex=.5+.1*(1-trials[,2]) # successes in blue, failures in orange ; so higher ordinates are bluer, lower are oranger
          )
 
     
@@ -101,7 +101,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, cap
          ,trials[,2] + (trials[,2]-.5)*2*-rexp(nrow(trials),20)               # success or failure, with some jittering to appreciate density
          ,xlim=latest_estimate^2 * c(.75,1.33)                                # slightly zoomed, not showing everything
          ,ylim=0:1,main=c("Probit regression",paste0("New estimate ",round(latest_estimate^2),", slope ",round(latest_beta,3))),xlab="Sample size",ylab="Expected power"
-         ,type="p",col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"44")[1+trials[,2]],pch=1,cex=.5)
+         ,type="p",col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"")[1+trials[,2]],pch=3,cex=.5)
     lines(latest_estimate^2*c(.75,1,1),c(tar_power,tar_power,0),lty=2)
     curve(pnorm(qnorm(tar_power)+latest_beta*(sqrt(x)-latest_estimate)),add=TRUE)
     if(savegraphs) dev.off()                                                  # closing device and saving image if graphs are to be saved
