@@ -67,7 +67,7 @@ adsasi = function(simfun,tar_power=0.9,...,nsims=5000, verbose=F, impNN=Inf, cap
          ,ylim=median(trials[,1])^2 * c(.75,1.33)             # zoomed, not showing everything
          ,main=c("Trace of sample size exploration",paste0("Current estimate ",round(latest_estimate^2)," = (",round(latest_estimate,1),"+-",round(se,2),")²")) # writing the latest estimate and its error
          ,xlab="Simulation#",ylab="Sample size",type="p"
-         ,col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"66")[1+trials[,2]],pch=1,cex=.4+.1*(1-trials[,2]) # successes in blue, failures in orange ; so higher ordinates are bluer, lower are oranger
+         ,col=paste(sep="",c(rgb(1,.5,0),rgb(0,.6,0.8)),"99")[1+trials[,2]],pch=1,cex=.5+.1*(1-trials[,2]) # successes in blue, failures in orange ; so higher ordinates are bluer, lower are oranger
          )
 
     
