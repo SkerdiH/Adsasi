@@ -107,11 +107,14 @@ simulate_fvc_slope(50)
 # Run adsasi, some fitting problems will happen given the high number of simulations
 proposal = adsasi(simulate_fvc_slope)
 # This is obviously slower than for the t-test
+# Answer is usually aorund 145
 
 # In the supplementary material, the authors give the slopes from their own modelling
-# We do not have access to their modelling code, but we can check a t-test sample size derived from those values against our simulations
+# We do not have access to their modelling code & raw data, but we can check a t-test sample size derived from those values against our simulations
 # Approximate slope standard deviation from supplementary material (Table S3, the given values are SE not SD)
 (0.51*sqrt(63)+0.52*sqrt(60))/2  # = 4.037951
 # Approximate standardized effect size, and sample size
-power.t.test(NULL,(3.21-1.02)/4.04,sig=.05,pow=.9)
-# Roughly similar, but without their code, it is easier to trust this value after doing our own simulation
+power.t.test(NULL,(3.21-1.02)/4.04,sig=.05,pow=.9)$n*2 # = 145
+
+# Very similar, but without their code, it is easier to trust this value after doing our own simulation
+
