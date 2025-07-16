@@ -1,5 +1,5 @@
 # The Adsasi algorithm (ADaptive SAmple SIze) is based on the algorithm in Haviari & Mentré BMC Med Res Methodol 2024, adapted for any clinical trial design & test
-# The gist of the approach if that we try different sample sizes empirically and bidn them together with a probit regression (why probit ? read the paper ;)
+# The gist of the approach if that we try different sample sizes empirically and bind them together with a probit regression (why probit ? read the paper ;)
 # The Adsasi algorithm needs a function that takes as argument a number of subjects and outputs TRUE or FALSE per the success/failure of the clinical trial. The user has to write the function. 
 # Most of the time, TRUE means rejection of some type of parametric H0 (null hypothesis), but depending on the complexity the user might want to program something more complicated (e.g. hitting multiple endpoints)
 # Be careful with more complex stuff though, because power has to be a bijection of sample size for the algorithm to function properly
