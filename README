@@ -1,0 +1,6 @@
+Call the scripts 0 to 2 in their numbered order, using (in R) : 
+source("https://raw.githubusercontent.com/SkerdiH/Adsasi/refs/heads/main/0-%20Setup%20for%20t-test.r")
+source("https://raw.githubusercontent.com/SkerdiH/Adsasi/refs/heads/main/1-%20Adsasi%20main%20loop.r")
+source("https://raw.githubusercontent.com/SkerdiH/Adsasi/refs/heads/main/2-%20Tutorial.r")
+Script 2 will execute a tutorial directly in the console. Be sure to check either the files or the functions they load, they are heavily annotated. 
+Script 3 is a more complicated example. 
